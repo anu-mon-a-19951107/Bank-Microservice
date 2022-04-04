@@ -6,6 +6,7 @@ package com.accounts.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,39 +24,67 @@ import com.accounts.service.AccountsService;
 @RequestMapping(value = "/accounts")
 public class AccountsController {
 
+	/**
+	 * AccountsService
+	 */
 	@Autowired
 	private AccountsService accountsService;
 
+	/**
+	 * @param accounts
+	 * @return
+	 */
 	@PostMapping(value = "/create")
 	public String createAccounts(@RequestBody Accounts accounts) {
 		String saveStatus = accountsService.save(accounts);
 		return saveStatus != null?saveStatus:null;
 	}
 
+	/**
+	 * @param accounts
+	 * @return
+	 * @throws Exception
+	 */
 	@PostMapping(value = "/update")
 	public String updateAccounts(@RequestBody Accounts accounts) throws Exception {
 		String updateStatus = accountsService.update(accounts);
 		return updateStatus != null?updateStatus:null;
 	}
 
-	@PostMapping(value = "/viewById")
+	/**
+	 * @param customer
+	 * @return
+	 */
+	@GetMapping(value = "/viewById")
 	public List<Accounts> viewAccountsById(@RequestBody Customer customer) {
 		List<Accounts> acDetailList = accountsService.findByCustomerId(customer.getId());
 		return acDetailList != null ? acDetailList : null;
 	}
 
-	@PostMapping(value = "/viewByAcNr")
+	/**
+	 * @param accounts
+	 * @return
+	 */
+	@GetMapping(value = "/viewByAcNr")
 	public Accounts viewAccountsByAcNr(@RequestBody Accounts accounts) {
 		Accounts acDetail = accountsService.findByAccountNumber(accounts.getAccountNumber());
 		return acDetail != null ? acDetail : null;
 	}
 
-	@PostMapping(value = "/deleteById")
+	/**
+	 * @param accounts
+	 * @return
+	 */
+	@GetMapping(value = "/deleteById")
 	public String deleteById(@RequestBody Accounts accounts) {
 		return accountsService.deleteById(accounts.getCustomerId());
 	}
 
-	@PostMapping(value = "/deleteByAcNr")
+	/**
+	 * @param accounts
+	 * @return
+	 */
+	@GetMapping(value = "/deleteByAcNr")
 	public String deleteByAccountNumber(@RequestBody Accounts accounts) {
 		return accountsService.deleteByAccountNumber(accounts);
 	}
