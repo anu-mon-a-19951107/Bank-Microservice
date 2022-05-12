@@ -6,6 +6,7 @@ package com.loans.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.loans.data.objects.Loans;
 import com.loans.exception.LoansCustomException;
@@ -15,6 +16,7 @@ import com.loans.repository.LoansRepository;
  * @author anuantony
  *
  */
+@Service
 public class LoansService {
 
 	/**
